@@ -22,5 +22,5 @@ steps:
 - script: dotnet build StringExtensionsLib/StringExtensionsLib.csproj --configuration $(buildConfiguration)
   displayName: 'Build'
 
-- script: dotnet pack StringExtensionsLib/StringExtensionsLib.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+- script: dotnet pack StringExtensionsLib/StringExtensionsLib.csproj --configuration $(buildConfiguration) --output "$(Build.ArtifactStagingDirectory)"
   displayName: 'Pack NuGet package'
