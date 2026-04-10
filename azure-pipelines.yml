@@ -24,3 +24,9 @@ steps:
 
 - script: dotnet pack StringExtensionsLib/StringExtensionsLib.csproj --configuration $(buildConfiguration) --output "$(Build.ArtifactStagingDirectory)"
   displayName: 'Pack NuGet package'
+
+- task: NuGetAuthenticate@1
+  displayName: 'Authenticate to Azure Artifacts'
+
+- script: nuget push "$(Build.ArtifactStagingDirectory)\*.nupkg" -Source "https://pkgs.dev.azure.com/ian-devops/StringExtensionsLibProject/_packaging/stringextensions-feed/nuget/v3/index.json" -ApiKey az
+  displayName: 'Push package to Azure Artifacts'
