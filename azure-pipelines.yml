@@ -1,0 +1,26 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '10.x'
+
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
+
+- script: dotnet restore
+  displayName: 'Restore'
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Build'
+
+- script: dotnet pack --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+  displayName: 'Pack NuGet package'
